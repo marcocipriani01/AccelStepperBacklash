@@ -332,7 +332,8 @@ void AccelStepper::step(long step)
     switch (_interface)
     {
     case FUNCTION:
-        if (_invertDir) step = -step;
+        if (_invertDir)
+            step = -step;
         step0(step);
         break;
 
@@ -341,27 +342,32 @@ void AccelStepper::step(long step)
         break;
 
     case FULL2WIRE:
-        if (_invertDir) step = -step;
+        if (_invertDir)
+            step = -step;
         step2(step);
         break;
 
     case FULL3WIRE:
-        if (_invertDir) step = -step;
+        if (_invertDir)
+            step = -step;
         step3(step);
         break;
 
     case FULL4WIRE:
-        if (_invertDir) step = -step;
+        if (_invertDir)
+            step = -step;
         step4(step);
         break;
 
     case HALF3WIRE:
-        if (_invertDir) step = -step;
+        if (_invertDir)
+            step = -step;
         step6(step);
         break;
 
     case HALF4WIRE:
-        if (_invertDir) step = -step;
+        if (_invertDir)
+            step = -step;
         step8(step);
         break;
     }
@@ -383,10 +389,14 @@ void AccelStepper::setOutputPins(uint8_t mask)
         digitalWrite(_pin[i], (mask & (1 << i)) ? (HIGH ^ _pinInverted[i]) : (LOW ^ _pinInverted[i]));
 }
 
-void AccelStepper::setDirectionInverted(boolean b) {
-    if (_interface == DRIVER) {
+void AccelStepper::setDirectionInverted(boolean b)
+{
+    if (_interface == DRIVER)
+    {
         _pinInverted[1] = b;
-    } else {
+    }
+    else
+    {
         _invertDir = b;
     }
 }
@@ -564,10 +574,12 @@ void AccelStepper::step8(long step)
 // Prevents power consumption on the outputs
 void AccelStepper::disableOutputs()
 {
-    if (!_interface) return;
+    if (!_interface)
+        return;
 
     setOutputPins(0); // Handles inversion automatically
-    if (_enablePin != 0xff) {
+    if (_enablePin != 0xff)
+    {
         pinMode(_enablePin, OUTPUT);
         digitalWrite(_enablePin, LOW ^ _enableInverted);
     }
@@ -614,7 +626,8 @@ void AccelStepper::setEnablePin(uint8_t enablePin)
     }
 }
 
-void AccelStepper::setEnablePin(uint8_t enablePin, boolean enableInvert) {
+void AccelStepper::setEnablePin(uint8_t enablePin, boolean enableInvert)
+{
     setEnablePin(enablePin);
     _enableInverted = enableInvert;
 }
@@ -626,10 +639,14 @@ void AccelStepper::setPinsInverted(bool directionInvert, bool stepInvert, bool e
     _enableInverted = enableInvert;
 }
 
-boolean AccelStepper::isDirectionInverted() {
-    if (_interface == DRIVER) {
+boolean AccelStepper::isDirectionInverted()
+{
+    if (_interface == DRIVER)
+    {
         return _pinInverted[1];
-    } else {
+    }
+    else
+    {
         return _invertDir;
     }
 }
